@@ -39,38 +39,38 @@ class Handler(BaseHandler):
             }
         }
         result['title'] = response.doc('title').text()
-        print response.doc('title').text()
+        # print response.doc('title').text()
         info = response.doc('.margin10 > .content').text()
         result['content'] = info
         return result
 
     # on_result 将数据存储于数据库
-    def on_result(self, result):
-        reload(sys)
-        sys.setdefaultencoding('utf-8')
-        if not result or not result['title']:
-            return
-        # 连接配置信息
-        mysql_config = {
-            'host': '127.0.0.1',
-            'port': 3306,
-            'user': 'root',
-            'password': 'root',
-            'db': 'logdb',
-            'charset': 'utf8',
-            'cursorclass': pymysql.cursors.DictCursor,
-        }
-        # 创建连接
-        connection = pymysql.connect(**mysql_config)
-        # 执行sql语句
-        try:
-            with connection.cursor() as cursor:
-                # 执行sql语句，进行查询
-                sql = 'insert boohee(url, title, contents, content) VALUES (%s, %s, %s, %s)'
-                # 获取查询结果
-                cursor.execute(sql, (str(result['url']), str(result['title']), str(result['contents']),
-                                     json.dumps(result['content'], ensure_ascii=False)))
-            # 没有设置默认自动提交，需要主动提交，以保存所执行的语句
-            connection.commit()
-        finally:
-            connection.close()
+    # def on_result(self, result):
+    #     reload(sys)
+    #     sys.setdefaultencoding('utf-8')
+    #     if not result or not result['title']:
+    #         return
+    #     # 连接配置信息
+    #     mysql_config = {
+    #         'host': '127.0.0.1',
+    #         'port': 3306,
+    #         'user': 'root',
+    #         'password': 'root',
+    #         'db': 'logdb',
+    #         'charset': 'utf8',
+    #         'cursorclass': pymysql.cursors.DictCursor,
+    #     }
+    #     # 创建连接
+    #     connection = pymysql.connect(**mysql_config)
+    #     # 执行sql语句
+    #     try:
+    #         with connection.cursor() as cursor:
+    #             # 执行sql语句，进行查询
+    #             sql = 'insert boohee(url, title, contents, content) VALUES (%s, %s, %s, %s)'
+    #             # 获取查询结果
+    #             cursor.execute(sql, (str(result['url']), str(result['title']), str(result['contents']),
+    #                                  json.dumps(result['content'], ensure_ascii=False)))
+    #         # 没有设置默认自动提交，需要主动提交，以保存所执行的语句
+    #         connection.commit()
+    #     finally:
+    #         connection.close()
