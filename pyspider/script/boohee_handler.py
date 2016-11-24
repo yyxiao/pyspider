@@ -4,8 +4,9 @@
 # Project: boohee1
 import re, requests, hashlib, time
 from pyspider.libs.base_handler import *
-import pymysql
-import sys, json
+import pyquery
+# import pymysql
+# import sys, json
 
 
 class Handler(BaseHandler):
