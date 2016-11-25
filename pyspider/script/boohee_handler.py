@@ -4,7 +4,6 @@
 # Project: boohee1
 import re, requests, hashlib, time
 from pyspider.libs.base_handler import *
-import pyquery
 # import pymysql
 # import sys, json
 
@@ -32,18 +31,15 @@ class Handler(BaseHandler):
     def detail_page(self, response):
         return {
             "url": response.url,
-            'title' : response.doc('title').text(),
-            'contents': response.doc('.margin10 > .content').text(),
-            'content': {
-                'name': response.doc('.margin10 > .content > dl .dt').text(),
-                'value': response.doc('.margin10 > .content > dl .dd').text()
-            }
+            'name': response.doc('.crumb').text().split('/')[-1].strip(),
+            'contents': response.doc('.margin10 > .content').text().split('>>')[0].strip()
         }
         result['title'] = response.doc('title').text()
-        # print response.doc('title').text()
         info = response.doc('.margin10 > .content').text()
         result['content'] = info
         return result
+
+
 
     # on_result 将数据存储于数据库
     # def on_result(self, result):

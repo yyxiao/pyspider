@@ -38,7 +38,17 @@ def search_blob_demo():
                     data[key] = utils.text(value)
             if 'result' in data:
                 data['result'] = json.loads(data['result'])
-            print(data)
+            # print(data)
+            contents = data['result']['contents'].split('>>')[0].strip().split(' ')[2:]
+            # print(len(contents))
+            for i in range(len(contents)):
+                if (i % 2) == 0:
+                    print('name:' + contents[i])
+                else:
+                    print('value:' + contents[i])
+
+
+
             """
             {'url': 'http://www.boohee.com/shiwu/niuru_junzhi', 'taskid': '0137f12ec1348158a407f5fb622c64c7',
             'updatetime': 1479816033.2923,
@@ -64,4 +74,4 @@ def search_blob_demo():
         connection.close()
 
 
-# search_blob_demo()
+search_blob_demo()
