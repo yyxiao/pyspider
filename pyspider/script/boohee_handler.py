@@ -29,14 +29,21 @@ class Handler(BaseHandler):
 
     @config(priority=2)
     def detail_page(self, response):
-        return {
+        other_all = response.doc('.basic-infor > li').text().split('红绿灯')[0].strip().split(' ')
+        search_title = '别名：'
+        other_name = ''
+        if search_title in other_all:
+            for i in range(len(other_all)):
+                if search_title == other_all[i]:
+                    other_name = other_all[i + 1]
+        else:
+            other_name = ''
+        result = {
             "url": response.url,
             'name': response.doc('.crumb').text().split('/')[-1].strip(),
-            'contents': response.doc('.margin10 > .content').text().split('>>')[0].strip()
+            'contents': response.doc('.margin10 > .content').text().split('>>')[0].strip(),
+            'other_name': other_name
         }
-        result['title'] = response.doc('title').text()
-        info = response.doc('.margin10 > .content').text()
-        result['content'] = info
         return result
 
 
