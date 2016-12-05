@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 # Created on 2016-11-22 10:15:31
-# Project: boohee1
+# Project: pyspider
 import re, requests, hashlib, time
 from pyspider.libs.base_handler import *
 # import pymysql
@@ -41,6 +41,7 @@ class Handler(BaseHandler):
         result = {
             "url": response.url,
             'name': response.doc('.crumb').text().split('/')[-1].strip(),
+            'type': response.doc('.crumb').text().split('/')[-2].strip(),
             'contents': response.doc('.margin10 > .content').text().split('>>')[0].strip(),
             'other_name': other_name
         }
