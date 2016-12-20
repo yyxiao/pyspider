@@ -313,6 +313,7 @@ class Handler(BaseHandler):
                 "url": response.url,
                 'name': name,
                 'type': type,
+                'search': response.save,
                 'contents': response.doc('.margin10 > .content').text().split('>>')[0].strip(),
                 'other_name': other_name
             }
