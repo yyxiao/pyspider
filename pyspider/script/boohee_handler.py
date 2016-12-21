@@ -289,6 +289,8 @@ class Handler(BaseHandler):
                 self.crawl(each.attr.href, callback=self.detail_page, save=response.save)
             elif re.search("http://www.boohee.com/food/group/.*", each.attr.href):
                 self.crawl(each.attr.href, callback=self.index_page)
+            elif re.search("http://www.boohee.com/food/search\?keyword=.*", each.attr.href):
+                self.crawl(each.attr.href, callback=self.index_page, save=response.save)
 
     @config(priority=2)
     def detail_page(self, response):
