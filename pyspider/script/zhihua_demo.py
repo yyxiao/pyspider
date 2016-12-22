@@ -69,9 +69,9 @@ class Handler(BaseHandler):
     def get_timestamp(self, s):
         try:
             if not s: return 0
-            date = re.findall(ur"(\d{4})[年|/]*?(\d{1,2})[月|/]*?(\d{1,2})[日|/]*?", s)
+            date = re.findall("(\d{4})[年|/]*?(\d{1,2})[月|/]*?(\d{1,2})[日|/]*?", s)
             date = "-".join(date[0] if date else [])
-            dtime = re.findall(ur"(\d{1,2}:\d{1,2}:\d{1,2})", s)
+            dtime = re.findall("(\d{1,2}:\d{1,2}:\d{1,2})", s)
             dtime = dtime[0] if dtime else ""
             if date and not dtime:
                 t_obj = time.strptime("{d} {t}".format(d=date, t=dtime).strip(), "%Y-%m-%d")
